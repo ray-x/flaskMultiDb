@@ -24,7 +24,8 @@ def create_dev():
     db.session.add(dev)
     db.session.add(devBackup)
     db.session.commit()
-    return jsonify( { 'iotDevice': request.json['deviceNum'] }) , 201
+    devAdded = models.iotDevice.query.filter_by(userName=dev.userName).first()
+    return jsonify( { 'iotDevice': devAdded.deviceNum }) , 201
 
 if __name__ == '__main__':
         app.run(debug = True)
